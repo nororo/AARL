@@ -1,0 +1,91 @@
+
+output_data_dir: /path-to-your-workspace/results/multi_account_clip/
+model_dir: /path-to-your-workspace/results/multi_account_clip/
+data_dir: /path-to-your-workspace/AARL/
+
+data_name: multi_account_clip
+nrows: null  # limit the number of rows for debugging
+max_length: 256
+
+max_accounts: 100 # max_accounts: maximum number of accounts per company for CLIP learning
+output_dim: 256
+use_account_name_mean_pooling: true # use_account_name_mean_pooling: use mean pooling for account name encoding
+
+
+text_model: bert-base-multilingual-cased # text_model: text encoder model
+account_model: distilbert-base-multilingual-cased # account_model: account encoder model
+
+temperature: 0.1 # temperature: temperature for contrastive learning
+freeze_text_bert: false
+freeze_account_bert: false
+
+use_text_lora: true  # use_text_lora: use LoRA for text encoder
+use_account_lora: false  # use_account_lora: use LoRA for account encoder
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.1
+
+learning_rate: 2.0e-5 # learning_rate: learning rate for training
+weight_decay: 0.01
+batch_size: 8
+max_epochs: 50
+precision: bf16-mixed  # precision: precision for training
+
+accumulate_grad_batches: 3 # accumulate_grad_batches: accumulate gradients for training
+val_check_interval: 1.0 # val_check_interval: interval for validation
+num_workers: 0
+patience: 3
+save_top_k: 3
+accelerator: gpu
+
+# pretraining settings
+pretraining_max_accounts: 10 # pretraining_max_accounts: maximum number of accounts per company for pretraining
+enable_pretraining: true
+pretraining_epochs: 50
+pretraining_learning_rate: 1.0e-4
+mask_probability: 0.15
+pretraining_batch_size: 16
+
+# pretrained model path (if specified, skip pretraining)
+pretrained_model_path: null # pretrained model path
+# resume checkpoint path (if specified, resume from the checkpoint)
+pretraining_resume_checkpoint_path: null # resume checkpoint path
+# clip learning checkpoint path (if specified, resume from the checkpoint)
+clip_checkpoint_path: null # clip learning checkpoint path
+
+# true: enable current period prediction in pretraining
+# false: disable current period prediction in pretraining
+enable_current_period_in_pretraining: true
+
+# true: enable next period prediction in pretraining
+# false: disable next period prediction in pretraining
+enable_next_period_in_pretraining: true
+
+##############################################
+# inference settings
+##############################################
+inference_model_path: /path-to-your-workspace/results/xxxx.ckpy
+is_edgar: false
+inference_amounts_change_file: df_amounts_change_inf_all.csv
+inference_text_file: null  # example: text_512_all_reconstructed.csv
+
+inference_output_path: /path-to-your-workspace/results/xxxx.pkl
+
+inference_batch_size: 64
+inference_device: auto
+inference_normalize: true
+
+# use mean pooling for company level feature extraction
+# null: automatically determine when pretrained model is detected
+# true: always use mean pooling
+# false: always use company attention
+inference_use_mean_pooling: null
+
+# output hidden_size dimension vectors without projection head (for CLIP comparison)
+# true: output hidden_size dimension vectors before projection
+# false: output output_dim dimension vectors after projection (default)
+inference_use_pre_projection: false
+
+# limit the number of rows to process (null: no limit, 1000 for debugging)
+inference_nrows: null
+
