@@ -1,4 +1,7 @@
-# %%
+"""
+1. Extract text data from XBRL documents.
+2. Make input jsonl file for LLM extraction processing.
+"""
 import sys
 
 sys.path.append(r"./Projects/XBRL_common_space_projection")
@@ -6,8 +9,11 @@ sys.path.append(
     r"./Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
 )
 
+import contextlib
+import pickle
 import warnings
 
+import joblib
 import pandas as pd
 from edinet_xbrl_prep.link_base_file_analyzer import *
 from langchain.text_splitter import CharacterTextSplitter
@@ -269,20 +275,6 @@ def preproc_fs(
     fs_tbl = FsDataDf(pd.read_pickle(filename))
     log_filename = temp_path_str + "/fs_tbl_log.json"
     log_dict = json.load(open(log_filename))
-    # print(json.dumps(log_dict, indent=4))
-    # conf = {
-    #    "tag": "anly",
-    #    "include_tree_top_keyword": "OverviewOfBusinessHeading",
-    #    "include_keyword_list": ["ManagementAnalysis"],  # CriticalContract
-    #    "exclude_keyword": [],
-    #    "keep_taxonomi_list": [
-    #        "jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsHeading",
-    #        "jpcrp_cor:ManagementAnalysisOfFinancialPositionOperatingResultsAndCashFlowsTextBlock",
-    #        #'jpcrp_cor:AnalysisAndResponsesToSignificantEventsRelatedToGoingConcernRisksEtcTextBlock'
-    #        #'jpcrp_cor:CriticalContractsForOperationHeading',
-    #        #'jpcrp_cor:CriticalContractsForOperationTextBlock'
-    #    ],
-    # }
     # get linkbase file
     linkbasefile_obj = linkbasefile_cor(
         zip_file_str=zip_file_str,
@@ -290,12 +282,7 @@ def preproc_fs(
     )
     linkbasefile_obj.read_linkbase_file()
     # make account label
-    # linkbasefile_obj.make_account_label(
-    #    account_list_common_obj=account_list_common_obj,
-    #    role_list=role_keyward_list
-    #    )
     account_link_tracer_obj = account_link_tracer_loc(linkbasefile_obj.parent_child_df)
-    # account_link_tracer_obj=linkbasefile_obj.account_link_tracer_obj
     role_text = "http://disclosure.edinet-fsa.go.jp/role/jpcrp/rol_CabinetOfficeOrdinanceOnDisclosureOfCorporateInformationEtcFormNo3AnnualSecuritiesReport"
     edinet_code = response_tbl.loc[itr_docID, "response_edinetCode"]
     period_start = response_tbl.loc[itr_docID, "response_periodStart"]
@@ -326,40 +313,9 @@ def preproc_fs(
     preproc_log["period_end"] = response_tbl.loc[itr_docID, "response_periodEnd"]
     preproc_log["EDINET_taxonomy_year"] = response_tbl.loc[itr_docID, "year"]
 
-    return dict_add  # ,log_dict#, kpi_val, cy_pl, cy_bs, py_pl, py_bs
+    return dict_add
 
 
-import joblib
-
-
-@contextlib.contextmanager
-def timer(name):
-    t0 = time.time()
-    yield
-    print(f"[{name}] done in {time.time() - t0:.2f} s ")
-
-
-import contextlib
-
-
-@contextlib.contextmanager
-def tqdm_joblib(tqdm_object):
-    """Context manager to patch joblib to report into tqdm progress bar given as argument
-    https://stackoverflow.com/questions/24983493/tracking-progress-of-joblib-parallel-execution/58936697#58936697
-    """
-
-    class TqdmBatchCompletionCallback(joblib.parallel.BatchCompletionCallBack):
-        def __call__(self, *args, **kwargs):
-            tqdm_object.update(n=self.batch_size)
-            return super().__call__(*args, **kwargs)
-
-    old_batch_callback = joblib.parallel.BatchCompletionCallBack
-    joblib.parallel.BatchCompletionCallBack = TqdmBatchCompletionCallback
-    try:
-        yield tqdm_object
-    finally:
-        joblib.parallel.BatchCompletionCallBack = old_batch_callback
-        tqdm_object.close()
 
 
 def get_zipdir2(docid: str):
@@ -371,9 +327,6 @@ def get_zipdir2(docid: str):
     return zip_file
 
 
-# %%
-# NEXT: Long textの処理
-#  -> chunk 項目指定で抽出
 
 
 def preproc_nlp_xbrltext(text: str) -> str:
@@ -455,8 +408,9 @@ def make_prompt_qag_prep(prompt_dict: dict, sample_text: str):
     return system_prompt_comp, user_prompt_comp
 
 
-# %%
+##############################################################
 # Business
+##############################################################
 example_text = """
 #### 例
 ##### 文章
@@ -555,23 +509,8 @@ print(usr_p)
 # %%
 prompt_ext = {"business": prompt_ext_business, "risk": prompt_ext_risk}
 
-# %%
-
-# %% dataset
-
-# filename=PROJDIR / "data/0_metadata/dataset_2407/response_tbl_rst_2407_v1012_chk2.csv"
-# chk_df=pd.read_csv(filename)
-
-
-# %%
-
 
 TESTDIR = Path(PROJPATH) / "tests/20250115"
-# model_name = "llama_3.1_70b"
-# tag_name = "anly"
-# filename = TESTDIR / "account_list_common_obj_dict.pkl"
-# with open(filename, 'rb') as f:
-#    account_list_common_obj_dict = pickle.load(f)
 
 fs_dict = {
     "BS": ["_BalanceSheet", "_ConsolidatedBalanceSheet"],
@@ -630,14 +569,14 @@ with tqdm_joblib(
         ],
     )
 
-# %% save
-import pickle
 
 filename = PROJPATH + "data/3_processed/dataset_2507/extracted_text_business.pkl"
 with open(filename, "wb") as f:
     pickle.dump(results, f)
 
-
+########################################################
+# Risk
+########################################################
 conf_risk = {
     "tag": "risk",
     "include_tree_top_keyword": "OverviewOfBusinessHeading",
@@ -921,10 +860,6 @@ for itr_docid in tqdm(response_tbl.index):
     text_block_file = filepath / "text_block.json"
     text_block_df = pd.read_json(text_block_file)
 
-    # metadata_file=filepath /"XBRL"/ "PublicDoc" / "log_dict.json"
-    # with open(metadata_file) as f:
-    #    metadata_file_dict = json.load(f)
-    # accounting_standard.append({"docid":itr_docid,"AccountingStandardsDEI":metadata_file_dict['AccountingStandardsDEI']})
 
     for tag_name in ["risk"]:
         if len(text_block_df.query("tag==@tag_name")) > 0:
@@ -955,27 +890,5 @@ batch_inf_file_generator_obj.export_list(out_filename)
 batch_inf_file_generator_obj.print_sample()
 
 # %%
-itr_docid = response_tbl.index[-100]
-data_path = response_tbl.loc[itr_docid, :].dataset
-
-filepath = PROJDIR / "data" / "2_intermediate" / ("data_pool_" + data_path) / itr_docid
-text_block_file = filepath / "text_block.json"
-text_block_df = pd.read_json(text_block_file)
-tag_name = "anly"
-print(text_block_df.query("tag==@tag_name").iloc[0, :].text)
-
-# %%
-temp_path_str = str(
-    PROJDIR
-    / "data"
-    / "2_intermediate"
-    / (f"data_pool_{response_tbl.loc[itr_docID, 'dataset']}")
-    / itr_docID,
-)
-filename = temp_path_str + "/fs_tbl.pkl"
-fs_tbl = FsDataDf(pd.read_pickle(filename))
-
-# %%
-fs_tbl.order
 
 # %%

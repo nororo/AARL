@@ -1,4 +1,7 @@
-# %%
+"""
+Fill missing account names in the financial statement data.
+
+"""
 import sys
 
 import numpy as np
