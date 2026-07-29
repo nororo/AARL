@@ -3,7 +3,7 @@ import sys
 
 import pandas as pd
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 import warnings
 from pathlib import Path
 
@@ -12,16 +12,16 @@ warnings.filterwarnings("ignore")
 
 import sys
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 sys.path.append(
-    r"/Users/noro/Documents/Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
+    r"./Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
 )
 
 
 from edinet_xbrl_prep.link_base_file_analyzer import *
 
 # %%
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Projects/XBRL_common_space_projection/"
 PROJDIR = Path(PROJPATH)
 TESTDIR = Path(PROJPATH) / "tests/20250127"
 TESTDIR
@@ -96,7 +96,7 @@ class bs_pl_table:
         #            #'参照リンク'
         #            ]
         self.integlated_list_path = Path(
-            "/Users/noro/Documents/Projects/XBRL_common_space_projection/data/2_intermediate/account_list",
+            "./Projects/XBRL_common_space_projection/data/2_intermediate/account_list",
         )
         if self.integlated_list_path.is_dir():
             self.tbl_bs_c = self.post_proc(
@@ -166,7 +166,7 @@ class bs_pl_table:
         return self.make_bs_pl_all()
 
     def make_bs_pl_all(self):
-        # filename="/Users/noro/Documents/Projects/XBRLanalysis/data/bkup/metadata/"+str(year)+"account_list.xls"
+        # filename="./Projects/XBRLanalysis/data/bkup/metadata/"+str(year)+"account_list.xls"
         tbl_bs_c = pd.DataFrame()
         tbl_pl_c = pd.DataFrame()
         tbl_oci_c = pd.DataFrame()
@@ -175,11 +175,11 @@ class bs_pl_table:
 
         for year in self.f_name_dict.keys():
             filename = (
-                "/Users/noro/Documents/Projects/XBRL_common_space_projection/data/0_metadata/xbrl_keys/"
+                "./Projects/XBRL_common_space_projection/data/0_metadata/xbrl_keys/"
                 + self.f_name_dict[year]
             )
             print(filename)
-            # filename="/Users/noro/Documents/Projects/XBRLanalysis/data/bkup/metadata/"+self.f_name_dict[year]
+            # filename="./Projects/XBRLanalysis/data/bkup/metadata/"+self.f_name_dict[year]
             if year >= 2020:
                 book = pd.ExcelFile(filename, engine="openpyxl")
             else:

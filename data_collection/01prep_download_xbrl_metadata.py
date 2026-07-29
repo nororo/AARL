@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Created on Sun Dec  1 19:51:17 2019
 
-@author: noro
+@author:
 Input: ダウンロード対象期間の開始時刻と終了時刻
 Output: ダウンロードした書類(./data/Docs/XXXXX.zip)
 
@@ -28,7 +28,7 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = "./Documents/Projects/XBRL_common_space_projection/"
 
 import pandera as pa
 from pandera.typing import Series

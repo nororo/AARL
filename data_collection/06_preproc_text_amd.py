@@ -1,14 +1,15 @@
 # %%
 import sys
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 sys.path.append(
-    r"/Users/noro/Documents/Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
+    r"./Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
 )
 
 import warnings
 
 import pandas as pd
+from edinet_xbrl_prep.link_base_file_analyzer import *
 from langchain.text_splitter import CharacterTextSplitter
 from src.data import data_utils
 from src.data.libs.compose_prompt import *
@@ -16,8 +17,6 @@ from src.data.libs.model_api import *
 from src.data.libs.utils import *
 from src.data.libs.xbrl_prep_patch import *
 from tqdm import tqdm
-
-from edinet_xbrl_prep.link_base_file_analyzer import *
 
 warnings.filterwarnings("ignore")
 
@@ -30,7 +29,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # %%
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Projects/XBRL_common_space_projection/"
 PROJDIR = Path(PROJPATH)
 
 # %%

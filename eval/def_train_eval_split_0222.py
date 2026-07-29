@@ -14,14 +14,14 @@ import sys
 from functools import partial
 from pathlib import Path
 
-sys.path.append(r"/Users/noro/Documents/Projects/t_interpretable_fs")
+sys.path.append(r"./Projects/t_interpretable_fs")
 from src.libs.load_dataset import load_bs_data, load_pl_data
 
-DATADIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/1_raw")
+DATADIR = Path("./Projects/t_interpretable_fs/data/1_raw")
 
 
-PROCDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/3_processed")
-XBRL_PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROCDIR = Path("./Projects/t_interpretable_fs/data/3_processed")
+XBRL_PROJPATH = r"./Projects/XBRL_common_space_projection/"
 XBRL_PROJDIR = Path(XBRL_PROJPATH)
 
 
@@ -85,7 +85,7 @@ x_data = x_data.assign(
 )
 
 # %% 0622 当期の総資産に対する比率を追加するか
-#fn = "/Users/noro/Documents/Projects/t_interpretable_fs/data/1_raw/merged_bs_filled_unq.pkl"
+#fn = "./Projects/t_interpretable_fs/data/1_raw/merged_bs_filled_unq.pkl"
 #bs_data = pd.read_pickle(fn)
 #bs_data.columns
 #bs_data["data_cy_rate"] = bs_data.data_cy /bs_data.offset
@@ -1055,11 +1055,11 @@ df_amounts_change = pd.read_csv(PROCDIR / "df_amounts_change_amd_0403.csv")
 df_amounts_change.docid.nunique()
 df_amounts_change.query("docid == 'S100X5AB'")
 # %%
-fn = "/Users/noro/Documents/Projects/t_interpretable_fs/data/2_intermediate/feature/fs_pca_comp512/fsdata_dim_reduced_pca_fraud.pkl"
+fn = "./Projects/t_interpretable_fs/data/2_intermediate/feature/fs_pca_comp512/fsdata_dim_reduced_pca_fraud.pkl"
 df_fs = pd.read_pickle(fn)
 df_fs.query("index == 'S100X5AB'")
 # %%
-fn = "/Users/noro/Documents/Projects/t_interpretable_fs/data/2_intermediate/feature/text_lda_topics256_maxf2048/text_lda_amd.pkl"
+fn = "./Projects/t_interpretable_fs/data/2_intermediate/feature/text_lda_topics256_maxf2048/text_lda_amd.pkl"
 df_text = pd.read_pickle(fn)
 df_text.query("index == 'S100X5AB'")
 # %%

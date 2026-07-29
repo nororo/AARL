@@ -9,8 +9,8 @@ import numpy as np
 import pandas as pd
 import yaml
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
-sys.path.append(r"/Users/noro/Documents/Projects/t_interpretable_fs")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/t_interpretable_fs")
 
 warnings.filterwarnings("ignore")
 
@@ -25,13 +25,13 @@ from src.libs.load_dataset import get_all_response_tbl
 
 importlib.reload(preproc_rst_loader)
 
-XBRL_PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+XBRL_PROJPATH = r"./Projects/XBRL_common_space_projection/"
 XBRL_PROJDIR = Path(XBRL_PROJPATH)
-DATADIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/1_raw")
+DATADIR = Path("./Projects/t_interpretable_fs/data/1_raw")
 INTERMEDIATEDIR = Path(
-    "/Users/noro/Documents/Projects/t_interpretable_fs/data/2_intermediate",
+    "./Projects/t_interpretable_fs/data/2_intermediate",
 )
-CFGDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/src")
+CFGDIR = Path("./Projects/t_interpretable_fs/src")
 cfg = yaml.load(open(CFGDIR / "cfg_exp_main.yaml"), Loader=yaml.FullLoader)
 
 # %%

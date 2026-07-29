@@ -12,7 +12,7 @@ import time
 from pathlib import Path
 
 # %%
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Projects/XBRL_common_space_projection/"
 PROJDIR = Path(PROJPATH)
 
 # .tag.value_counts()
@@ -20,18 +20,17 @@ PROJDIR = Path(PROJPATH)
 import pickle
 import sys
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 sys.path.append(
-    r"/Users/noro/Documents/Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
+    r"./Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
 )
+from edinet_xbrl_prep.link_base_file_analyzer import *
 from langchain.text_splitter import CharacterTextSplitter
 from src.data import data_utils
 from src.data.libs.compose_prompt import *
 from src.data.libs.model_api import *
 from src.data.libs.utils import *
 from src.data.libs.xbrl_prep_patch import *
-
-from edinet_xbrl_prep.link_base_file_analyzer import *
 
 
 def make_batch(dict_df, out_filename, prompt_gen_func, model_name="gpt_4o_mini"):

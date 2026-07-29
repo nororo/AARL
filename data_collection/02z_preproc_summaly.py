@@ -10,7 +10,7 @@ import sys
 
 import joblib
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 
 # from src.data.metadata_loader import get_docid_list_2020, get_responce, float_to_str, get_edinetcode
 # from src.data.preproc_rst_loader import get_preproc_rst_03
@@ -21,7 +21,7 @@ from src.data import metadata_loader, preproc_rst_loader
 
 importlib.reload(metadata_loader)
 importlib.reload(preproc_rst_loader)
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Projects/XBRL_common_space_projection/"
 
 # %%
 """

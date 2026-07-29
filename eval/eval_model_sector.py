@@ -5,23 +5,23 @@ import joblib
 import numpy as np
 import pandas as pd
 
-XBRL_PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+XBRL_PROJPATH = r"./Projects/XBRL_common_space_projection/"
 XBRL_PROJDIR = Path(XBRL_PROJPATH)
-PROCDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/3_processed")
-DATADIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/1_raw")
+PROCDIR = Path("./Projects/t_interpretable_fs/data/3_processed")
+DATADIR = Path("./Projects/t_interpretable_fs/data/1_raw")
 INTERMEDIATEDIR = Path(
-    "/Users/noro/Documents/Projects/t_interpretable_fs/data/2_intermediate",
+    "./Projects/t_interpretable_fs/data/2_intermediate",
 )
-RESULTSDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/results")
+RESULTSDIR = Path("./Projects/t_interpretable_fs/results")
 # %% Business Sector #########################################################
 # Get business sector from EdinetcodeDlInfo
 #########################################################
 import sys
 
-sys.path.append(r"/Users/noro/Documents/Projects/t_interpretable_fs")
+sys.path.append(r"./Projects/t_interpretable_fs")
 import yaml
 
-CFGDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/src")
+CFGDIR = Path("./Projects/t_interpretable_fs/src")
 cfg = yaml.load(open(CFGDIR / "cfg_exp_add.yaml"), Loader=yaml.FullLoader)
 from src.libs.downstream_task import (
     get_eval_docid_spec_list,
@@ -306,7 +306,7 @@ results_df = get_results_sector()
 results_df
 
 # %%
-#filename_business_class = "/Users/noro/Documents/Projects/XBRL_common_space_projection/data/0_metadata/dataset_2507/tiba/tse_sector_2025-03-31.csv"
+#filename_business_class = "./Projects/XBRL_common_space_projection/data/0_metadata/dataset_2507/tiba/tse_sector_2025-03-31.csv"
 #business_class = pd.read_csv(
 #    filename_business_class,
 #    header=0,

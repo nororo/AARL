@@ -1,7 +1,7 @@
 import sys
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
-sys.path.append(r"/Users/noro/Documents/Projects/t_interpretable_fs")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/t_interpretable_fs")
 
 import warnings
 from datetime import datetime
@@ -22,7 +22,7 @@ from src.libs.load_dataset import (
     load_pl_data,
 )
 
-CFGDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/src")
+CFGDIR = Path("./Projects/t_interpretable_fs/src")
 with (CFGDIR / "cfg_exp_main.yaml").open(encoding="utf-8") as _cfg_f:
     cfg = yaml.load(_cfg_f, Loader=yaml.FullLoader)
 
@@ -461,9 +461,9 @@ class BusinessSector:
         print(df_edinet_class.shape)
         # load tse sector info
         # https://www3.cuc.ac.jp/~tsuchiya/
-        # filename_business_class="/Users/noro/Documents/Projects/XBRL_common_space_projection/data/0_metadata/external/tse_sector_2023-11-30.csv"
-        # filename_business_class = "/Users/noro/Documents/Projects/XBRL_common_space_projection/data/0_metadata/external/tse_sector_2024-06-30.csv"
-        filename_business_class = "/Users/noro/Documents/Projects/XBRL_common_space_projection/data/0_metadata/dataset_2507/tiba/tse_sector_2025-03-31.csv"
+        # filename_business_class="./Projects/XBRL_common_space_projection/data/0_metadata/external/tse_sector_2023-11-30.csv"
+        # filename_business_class = "./Projects/XBRL_common_space_projection/data/0_metadata/external/tse_sector_2024-06-30.csv"
+        filename_business_class = "./Projects/XBRL_common_space_projection/data/0_metadata/dataset_2507/tiba/tse_sector_2025-03-31.csv"
 
         business_class = pd.read_csv(
             filename_business_class,

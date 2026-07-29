@@ -10,7 +10,7 @@ import yaml
 from pandera.typing import Series
 from pydantic.functional_validators import BeforeValidator
 
-CFGDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/src")
+CFGDIR = Path("./Projects/t_interpretable_fs/src")
 with (CFGDIR / "cfg_exp_main.yaml").open(encoding="utf-8") as _cfg_f:
     cfg = yaml.load(_cfg_f, Loader=yaml.FullLoader)
 

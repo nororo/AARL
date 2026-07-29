@@ -4,7 +4,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 import json
 import warnings
 from pathlib import Path
@@ -18,17 +18,16 @@ import pandera as pa
 from pandera.typing import Series
 from tqdm import tqdm
 
-sys.path.append(r"/Users/noro/Documents/Projects/XBRL_common_space_projection")
+sys.path.append(r"./Projects/XBRL_common_space_projection")
 sys.path.append(
-    r"/Users/noro/Documents/Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
+    r"./Projects/XBRL_common_space_projection/src/edinet_xbrl_prep",
 )
 import os
 from datetime import datetime
 
+from edinet_xbrl_prep.link_base_file_analyzer import *
 from src.data.libs.utils import DataLinageJson
 from src.data.libs.xbrl_prep_patch import *
-
-from edinet_xbrl_prep.link_base_file_analyzer import *
 
 # %%
 
@@ -193,7 +192,7 @@ def PL_test(data_context: FsDataDf, calc_dict_role) -> dict:
     return pl_key, kpi_key, ordinary_income_key, pl_val, kpi_val, ordinary_income_val
 
 
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Projects/XBRL_common_space_projection/"
 PROJDIR = Path(PROJPATH)
 TESTDIR = Path(PROJPATH) / "tests/20250127"
 TESTDIR

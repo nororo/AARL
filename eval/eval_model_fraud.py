@@ -7,14 +7,14 @@ import yaml
 from sklearn.metrics import auc as sklearn_auc
 from sklearn.metrics import roc_auc_score, roc_curve
 
-XBRL_PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+XBRL_PROJPATH = r"./Projects/XBRL_common_space_projection/"
 XBRL_PROJDIR = Path(XBRL_PROJPATH)
-PROCDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/3_processed")
+PROCDIR = Path("./Projects/t_interpretable_fs/data/3_processed")
 INTERMEDIATEDIR = Path(
-    "/Users/noro/Documents/Projects/t_interpretable_fs/data/2_intermediate",
+    "./Projects/t_interpretable_fs/data/2_intermediate",
 )
-DATADIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/1_raw")
-CFGDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/src")
+DATADIR = Path("./Projects/t_interpretable_fs/data/1_raw")
+CFGDIR = Path("./Projects/t_interpretable_fs/src")
 cfg = yaml.load(open(CFGDIR / "cfg_exp_add.yaml"), Loader=yaml.FullLoader)
 
 from libs.downstream_task import (
@@ -990,7 +990,7 @@ def eval_model_restatement(
 
 # %%
 
-RESULTSDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/results")
+RESULTSDIR = Path("./Projects/t_interpretable_fs/results")
 
 
 def main() -> None:

@@ -18,7 +18,7 @@ import requests
 from tqdm import tqdm
 
 # %%
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Documents/Projects/XBRL_common_space_projection/"
 PROJDIR = Path(PROJPATH)
 
 # %%
@@ -166,7 +166,7 @@ if __name__ == "__main__":
 # joblib.dump(res_results_shihanki, out_filename, compress=True)
 
 # %%
-PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+PROJPATH = r"./Projects/XBRL_common_space_projection/"
 res_results_yuho = joblib.load(
     PROJPATH + "data/0_metadata/dataset_2507/res_results_doc_yuho_2507_v0802.pkl.cmp",
 )

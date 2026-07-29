@@ -9,21 +9,21 @@ import pandas as pd
 
 warnings.filterwarnings("ignore")
 
-sys.path.append(r"/Users/noro/Documents/Projects/t_interpretable_fs")
+sys.path.append(r"./Projects/t_interpretable_fs")
 import yaml
 
-CFGDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/src")
+CFGDIR = Path("./Projects/t_interpretable_fs/src")
 
-XBRL_PROJPATH = r"/Users/noro/Documents/Projects/XBRL_common_space_projection/"
+XBRL_PROJPATH = r"./Projects/XBRL_common_space_projection/"
 XBRL_PROJDIR = Path(XBRL_PROJPATH)
-PROCDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/3_processed")
+PROCDIR = Path("./Projects/t_interpretable_fs/data/3_processed")
 INTERMEDIATEDIR = Path(
-    "/Users/noro/Documents/Projects/t_interpretable_fs/data/2_intermediate",
+    "./Projects/t_interpretable_fs/data/2_intermediate",
 )
-RESULTSDIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/results")
+RESULTSDIR = Path("./Projects/t_interpretable_fs/results")
 from libs.downstream_task import get_task_div_pred_kpi
 
-DATADIR = Path("/Users/noro/Documents/Projects/t_interpretable_fs/data/1_raw")
+DATADIR = Path("./Projects/t_interpretable_fs/data/1_raw")
 
 cfg = yaml.load(open(CFGDIR / "cfg_exp_add.yaml"), Loader=yaml.FullLoader)
 
