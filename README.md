@@ -61,4 +61,3 @@ fs_tbl_df:FsDataDf = get_fs_tbl(
 )
 ```
 
-The script
