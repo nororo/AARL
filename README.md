@@ -13,15 +13,39 @@ edinet_dataset/
 |
 ├── train/
 |   ├──docid_tbl_all_140101_250331.pkl # all doc id list from 2014-01-01 to 2025-03-31
+|   ├──sample/ # sample from the dataset
+|   |   ├──account_values_train_sample.csv # sample account values from the dataset
+|   |   ├──text_train_sample.csv # sample text from the dataset
 ```
 
 This dataset is created from the original data from EDINET. Therefore, term of use of original data from EDINET is applied. https://disclosure2.edinet-fsa.go.jp/week0010.aspx#
 
-For text data in edinet/dataset/train/, in addition to the term of use above ,since the text in the dataset were extracted from original documents using Llama-3.1 model, term of use of Meta Llama model is also applied. https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE
+For data in edinet/dataset/train/, in addition to the term of use above ,since the text in the dataset were extracted from original documents using Llama-3.1 model, term of use of Meta Llama model is also applied. https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE
 
 **full dataset is too large to be uploaded to the repository.**
 Google Drive link will be provided, when the paper is accepted.
 Sample from the dataset are available in the edinet_dataset/train/sample directory.
+
+#### column description
+##### docid_tbl
+    docid: document id (filename of downloaded zip file removed extension)
+    response_EdinetCode: edinet code from EDINET API
+    response_SecCode: sec code from EDINET API
+    response_FilerName: filer name from EDINET API
+    response_StartDate: start date of the financial statement
+    response_EndDate: end date of the financial statement
+
+##### account_values
+    docid: document id (filename of downloaded zip file removed extension)
+    key: key of the account value
+    label_jp_long_filled: label of the account value in Japanese
+    amounts_change_cls: change class of the account value
+    calc_parent_key: parent key of the account value
+
+##### text
+    docid: document id (filename of downloaded zip file removed extension)
+    text_type: type of the text ('mda', 'business', 'risk')
+    text: text from the financial statement (in Japanese)
 
 
 ### 2. Train AARL model
